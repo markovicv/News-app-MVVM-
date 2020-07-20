@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/feedId"
+        android:title="feed"
+        android:icon="@drawable/ic_feed"
+        />
+
+    <item
+        android:id="@+id/dbId"
+        android:title="database"
+        android:icon="@drawable/ic_database"
+        />
+
+    <item
+        android:id="@+id/settingsId"
+        android:title="settings"
+        android:icon="@drawable/ic_settings"
+        />
+
+</menu>
