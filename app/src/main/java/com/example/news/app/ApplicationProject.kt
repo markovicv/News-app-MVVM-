@@ -2,6 +2,7 @@ package com.example.news.app
 
 import android.app.Application
 import com.example.news.moduls.coreModule
+import com.example.news.moduls.newsModul
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -24,7 +25,8 @@ class ApplicationProject :Application(){
 
     private fun initKoin(){
         val modules = listOf(
-            coreModule
+            coreModule,
+            newsModul
         )
         startKoin {
             androidLogger(Level.DEBUG)

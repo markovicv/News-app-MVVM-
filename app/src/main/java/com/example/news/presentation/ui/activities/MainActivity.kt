@@ -2,14 +2,19 @@ package com.example.news.presentation.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModel
 import com.example.news.R
+import com.example.news.presentation.contract.ArticleContract
 import com.example.news.presentation.ui.fragments.DataBaseFragment
 import com.example.news.presentation.ui.fragments.FeedFragment
 import com.example.news.presentation.ui.fragments.SettingsFragment
+import com.example.news.presentation.viewmodel.ArticleViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
+     val articleViewModel:ArticleContract.ViewModel by viewModel<ArticleViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

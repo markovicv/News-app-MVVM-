@@ -11,7 +11,7 @@ interface ArticleDao {
     suspend fun insert(article:ArticleEntity)
 
     @Query("SELECT * FROM articles")
-    suspend fun getAllArticles():LiveData<List<ArticleEntity>>
+    fun getAllArticles():LiveData<List<ArticleEntity>>
 
     @Delete
     suspend fun delete(article: ArticleEntity)
