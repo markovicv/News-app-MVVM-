@@ -62,6 +62,8 @@ class SportsFragment :Fragment(R.layout.fragmnet_sports) {
             startActivity(intent)
         },{
             viewModel.saveArticle(it)
+            Toast.makeText(activity,Constants.SAVED,Toast.LENGTH_SHORT).show()
+
 
         })
         recyclerSports.apply {

@@ -62,6 +62,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             startActivity(intent)
         },{
             viewModel.saveArticle(it)
+            Toast.makeText(activity,Constants.SAVED,Toast.LENGTH_SHORT).show()
+
 
         })
         rvSearchId.apply {

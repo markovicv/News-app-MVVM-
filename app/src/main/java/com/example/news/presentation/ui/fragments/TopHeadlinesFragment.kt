@@ -61,6 +61,8 @@ class TopHeadlinesFragment : Fragment(R.layout.fragment_top_headlines) {
 
         },{
             viewModel.saveArticle(it)
+            Toast.makeText(activity,Constants.SAVED,Toast.LENGTH_SHORT).show()
+
         })
         recyclerId.apply {
             adapter = articleAdapter

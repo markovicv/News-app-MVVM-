@@ -61,6 +61,7 @@ class HealthFragment :Fragment(R.layout.fragment_health) {
             startActivity(intent)
         },{
             viewModel.saveArticle(it)
+            Toast.makeText(activity,Constants.SAVED,Toast.LENGTH_SHORT).show()
 
         })
         recyclerHealth.apply {

@@ -9,5 +9,6 @@ class Constants {
         val HEALTH = "health"
         val SCIENCE = "science"
         val TECHNOLOGY = "technology"
+        val SAVED = "Successfully saved"
     }
 }

@@ -64,6 +64,8 @@ class TechnologyFragment:Fragment(R.layout.fragment_technology) {
             startActivity(intent)
         },{
             viewModel.saveArticle(it)
+            Toast.makeText(activity,Constants.SAVED,Toast.LENGTH_SHORT).show()
+
 
         })
         recyclerTechnology.apply {
