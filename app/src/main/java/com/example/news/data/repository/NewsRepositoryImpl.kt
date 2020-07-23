@@ -40,7 +40,7 @@ class NewsRepositoryImpl(val remoteSource:NewsAPI,val localSource:ArticleDao) : 
     }
 
     override suspend fun upsert(article: Article) {
-        localSource.upsert(article)
+        localSource.insert(article)
 
     }
 

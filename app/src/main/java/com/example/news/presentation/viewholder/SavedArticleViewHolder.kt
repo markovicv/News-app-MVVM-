@@ -28,7 +28,7 @@ class SavedArticleViewHolder(itemView:View,private val onItemClickListener:(Int)
         itemView.authorId.setText(article.author)
         itemView.titleId.setText(article.title)
         itemView.descriptionId.setText(article.description)
-        itemView.sourceId.setText(article.source.name)
+        itemView.sourceId.setText(article.source?.name)
         itemView.publishedId.setText(article.publishedAt)
         Glide.with(itemView).load(article.urlToImage).into(itemView.mainImgId)
     }

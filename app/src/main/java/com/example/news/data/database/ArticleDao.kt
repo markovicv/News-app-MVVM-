@@ -8,7 +8,7 @@ import com.example.news.data.model.api_response.Article
 interface ArticleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(article:Article)
+    suspend fun insert(article:Article)
 
     @Query("SELECT * FROM articles")
     fun getAllArticles():LiveData<List<Article>>

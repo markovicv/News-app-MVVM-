@@ -11,6 +11,7 @@ import com.example.news.data.model.api_response.NewsResponse
 import com.example.news.data.model.domain.ArticleDomain
 import com.example.news.presentation.diff.ArticleDiffCallBack
 import com.example.news.presentation.viewholder.ArticleViewHolder
+import timber.log.Timber
 
 class ArticleAdapter(private val onItemClickListener:(Article)->Unit,private val onItemSavedListener:(Article)->Unit):RecyclerView.Adapter<ArticleViewHolder>() {
 
@@ -23,8 +24,11 @@ class ArticleAdapter(private val onItemClickListener:(Article)->Unit,private val
             val article = articleList.get(it)
             onItemClickListener.invoke(article)
         },{
+
             val article = articleList.get(it)
+            Timber.e("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ${article.author}")
             onItemSavedListener.invoke(article)
+
         })
     }
 
