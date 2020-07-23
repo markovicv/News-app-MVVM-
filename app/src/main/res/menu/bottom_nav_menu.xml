@@ -12,11 +12,12 @@
         android:title="database"
         android:icon="@drawable/ic_database"
         />
-
     <item
-        android:id="@+id/settingsId"
-        android:title="settings"
-        android:icon="@drawable/ic_settings"
+        android:id="@+id/searchId"
+        android:title="search"
+        android:icon="@drawable/ic_search_black_24dp"
         />
+
+
 
 </menu>

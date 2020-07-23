@@ -2,17 +2,17 @@ package com.example.news.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.news.data.model.entities.ArticleEntity
+import com.example.news.data.model.api_response.Article
 
 @Dao
 interface ArticleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(article:ArticleEntity)
+    suspend fun upsert(article:Article)
 
     @Query("SELECT * FROM articles")
-    fun getAllArticles():LiveData<List<ArticleEntity>>
+    fun getAllArticles():LiveData<List<Article>>
 
     @Delete
-    suspend fun delete(article: ArticleEntity)
+    suspend fun delete(article: Article)
 }

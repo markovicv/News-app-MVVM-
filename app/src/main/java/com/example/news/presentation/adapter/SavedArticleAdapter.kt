@@ -1,30 +1,28 @@
 package com.example.news.presentation.adapter
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.news.R
 import com.example.news.data.model.api_response.Article
-import com.example.news.data.model.api_response.NewsResponse
-import com.example.news.data.model.domain.ArticleDomain
 import com.example.news.presentation.diff.ArticleDiffCallBack
 import com.example.news.presentation.viewholder.ArticleViewHolder
+import com.example.news.presentation.viewholder.SavedArticleViewHolder
 
-class ArticleAdapter(private val onItemClickListener:(Article)->Unit,private val onItemSavedListener:(Article)->Unit):RecyclerView.Adapter<ArticleViewHolder>() {
+class SavedArticleAdapter(private val onItemClickListener:(Article)->Unit,private val onItemDeleteListener:(Article)->Unit) :RecyclerView.Adapter<SavedArticleViewHolder>(){
 
     private var articleList = mutableListOf<Article>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedArticleViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val containerView = layoutInflater.inflate(R.layout.news_item,parent,false)
-        return ArticleViewHolder(containerView,{
+        val containerView = layoutInflater.inflate(R.layout.saved_news_item,parent,false)
+        return SavedArticleViewHolder(containerView,{
             val article = articleList.get(it)
             onItemClickListener.invoke(article)
         },{
             val article = articleList.get(it)
-            onItemSavedListener.invoke(article)
+            onItemDeleteListener.invoke(article)
         })
     }
 
@@ -32,10 +30,9 @@ class ArticleAdapter(private val onItemClickListener:(Article)->Unit,private val
         return articleList.size
     }
 
-    override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SavedArticleViewHolder, position: Int) {
         holder.bind(articleList.get(position))
     }
-
     fun setArticleList(newList:List<Article>){
         val diffCallBack = ArticleDiffCallBack(articleList,newList)
         val diffResults = DiffUtil.calculateDiff(diffCallBack)

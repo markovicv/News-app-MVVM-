@@ -14,31 +14,30 @@ import com.example.news.presentation.adapter.ArticleAdapter
 import com.example.news.presentation.contract.ArticleContract
 import com.example.news.presentation.ui.activities.MainActivity
 import com.example.news.presentation.ui.activities.WebActivity
-import kotlinx.android.synthetic.main.fragment_technology.*
+import kotlinx.android.synthetic.main.fragment_health.*
+import kotlinx.android.synthetic.main.fragment_science.*
 import kotlinx.android.synthetic.main.fragment_top_headlines.*
-import kotlinx.android.synthetic.main.fragmnet_sports.*
 
-class SportsFragment :Fragment(R.layout.fragmnet_sports) {
+class HealthFragment :Fragment(R.layout.fragment_health) {
 
-    lateinit var viewModel:ArticleContract.ViewModel
-    private lateinit var articleAdapter: ArticleAdapter
-
+    private lateinit var articleAdapter:ArticleAdapter
+    lateinit var viewModel: ArticleContract.ViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
-        initRv()
+        inintRv()
         initRefreshFeed()
 
 
 
 
 
-    }
 
+    }
     private fun initViewModel(){
         viewModel = (activity as MainActivity).articleViewModel
 
-        viewModel.sportNews .observe(viewLifecycleOwner, Observer {
+        viewModel.healthNews .observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success ->{
                     it.data?.let {
@@ -53,26 +52,28 @@ class SportsFragment :Fragment(R.layout.fragmnet_sports) {
 
             }
         })
-        viewModel.getSportsNews(Constants.COUNTRY_NEWS,Constants.SPORTS)
+        viewModel.getHealthNews(Constants.COUNTRY_NEWS,Constants.HEALTH)
     }
-    private fun initRv(){
+    private fun inintRv(){
         articleAdapter = ArticleAdapter({
-            val intent = Intent(activity,WebActivity::class.java)
+            val intent = Intent(activity, WebActivity::class.java)
             intent.putExtra(Constants.NEWS_URL,it.url)
             startActivity(intent)
         },{
             viewModel.saveArticle(it)
 
         })
-        recyclerSports.apply {
+        recyclerHealth.apply {
             adapter = articleAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
     private fun initRefreshFeed(){
-        refreshSportId.setOnRefreshListener {
-            viewModel.getSportsNews(Constants.COUNTRY_NEWS,Constants.SPORTS)
-            refreshSportId.isRefreshing = false
+        refreshHealth.setOnRefreshListener {
+            viewModel.getHealthNews(Constants.COUNTRY_NEWS,Constants.HEALTH)
+            refreshHealth.isRefreshing = false
         }
     }
+
+
 }

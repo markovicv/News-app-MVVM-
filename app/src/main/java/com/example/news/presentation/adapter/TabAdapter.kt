@@ -4,9 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-import com.example.news.presentation.ui.fragments.ScienceFragment
-import com.example.news.presentation.ui.fragments.SportsFragment
-import com.example.news.presentation.ui.fragments.TopHeadlinesFragment
+import com.example.news.presentation.ui.fragments.*
 
 class TabAdapter(fragmentManager: FragmentManager):FragmentPagerAdapter(fragmentManager,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
@@ -19,24 +17,18 @@ class TabAdapter(fragmentManager: FragmentManager):FragmentPagerAdapter(fragment
             1 ->{
                 SportsFragment()
             }
+            2->ScienceFragment()
+
+            3->HealthFragment()
             else->{
-                ScienceFragment()
+                TechnologyFragment()
             }
 
         }    }
 
     override fun getCount(): Int {
-        return 3
+        return 5
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return when(position){
-            0->"TOP"
-            1->"SPORTS"
-            else ->{
-                return "SCIENCE"
-            }
-        }
 
-    }
 }

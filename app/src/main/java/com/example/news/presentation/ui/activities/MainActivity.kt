@@ -2,14 +2,12 @@ package com.example.news.presentation.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModel
 import com.example.news.R
 import com.example.news.presentation.contract.ArticleContract
 import com.example.news.presentation.ui.fragments.DataBaseFragment
 import com.example.news.presentation.ui.fragments.FeedFragment
-import com.example.news.presentation.ui.fragments.SettingsFragment
+import com.example.news.presentation.ui.fragments.SearchFragment
 import com.example.news.presentation.viewmodel.ArticleViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         val feedFragment = FeedFragment()
         val dataBaseFragment = DataBaseFragment()
-        val settingsFragment = SettingsFragment()
+        val searchFragment = SearchFragment()
 
         supportFragmentManager.beginTransaction().replace(R.id.containerFL,feedFragment).commit()
 
@@ -37,9 +35,12 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(R.id.containerFL,dataBaseFragment).commit()
 
                 }
-                R.id.settingsId -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.containerFL,settingsFragment).commit()
+                R.id.searchId->{
+                    supportFragmentManager.beginTransaction().replace(R.id.containerFL,searchFragment).commit()
                 }
+
+
+
             }
             true
         }

@@ -7,8 +7,16 @@ import com.example.news.data.model.api_response.Article
 import com.example.news.data.model.domain.ArticleDomain
 import kotlinx.android.synthetic.main.news_item.view.*
 
-class ArticleViewHolder(itemview:View):RecyclerView.ViewHolder(itemview) {
+class ArticleViewHolder(itemview:View,private val onItemClickListener:(Int)->Unit,private val onItemSaveListener:(Int)->Unit):RecyclerView.ViewHolder(itemview) {
 
+    init {
+        itemview.setOnClickListener {
+            onItemClickListener.invoke(adapterPosition)
+        }
+        itemview.saveBtnId.setOnClickListener {
+            onItemSaveListener.invoke(adapterPosition)
+        }
+    }
 
 
     fun bind(article: Article){

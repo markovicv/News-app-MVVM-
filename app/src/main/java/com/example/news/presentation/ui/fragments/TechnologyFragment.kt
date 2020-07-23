@@ -16,12 +16,11 @@ import com.example.news.presentation.ui.activities.MainActivity
 import com.example.news.presentation.ui.activities.WebActivity
 import kotlinx.android.synthetic.main.fragment_technology.*
 import kotlinx.android.synthetic.main.fragment_top_headlines.*
-import kotlinx.android.synthetic.main.fragmnet_sports.*
 
-class SportsFragment :Fragment(R.layout.fragmnet_sports) {
+class TechnologyFragment:Fragment(R.layout.fragment_technology) {
 
-    lateinit var viewModel:ArticleContract.ViewModel
     private lateinit var articleAdapter: ArticleAdapter
+    lateinit var viewModel: ArticleContract.ViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,12 +32,15 @@ class SportsFragment :Fragment(R.layout.fragmnet_sports) {
 
 
 
+
+
+
     }
 
     private fun initViewModel(){
         viewModel = (activity as MainActivity).articleViewModel
 
-        viewModel.sportNews .observe(viewLifecycleOwner, Observer {
+        viewModel.technologyNews .observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success ->{
                     it.data?.let {
@@ -53,26 +55,26 @@ class SportsFragment :Fragment(R.layout.fragmnet_sports) {
 
             }
         })
-        viewModel.getSportsNews(Constants.COUNTRY_NEWS,Constants.SPORTS)
+        viewModel.getTechnologyNews(Constants.COUNTRY_NEWS,Constants.TECHNOLOGY)
     }
     private fun initRv(){
         articleAdapter = ArticleAdapter({
-            val intent = Intent(activity,WebActivity::class.java)
+            val intent = Intent(activity, WebActivity::class.java)
             intent.putExtra(Constants.NEWS_URL,it.url)
             startActivity(intent)
         },{
             viewModel.saveArticle(it)
 
         })
-        recyclerSports.apply {
+        recyclerTechnology.apply {
             adapter = articleAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
     private fun initRefreshFeed(){
-        refreshSportId.setOnRefreshListener {
-            viewModel.getSportsNews(Constants.COUNTRY_NEWS,Constants.SPORTS)
-            refreshSportId.isRefreshing = false
+        refreshTechno.setOnRefreshListener {
+            viewModel.getTechnologyNews(Constants.COUNTRY_NEWS,Constants.TECHNOLOGY)
+            refreshTechno.isRefreshing = false
         }
     }
 }

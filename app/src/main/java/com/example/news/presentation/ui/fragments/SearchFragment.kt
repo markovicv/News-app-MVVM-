@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,31 +15,31 @@ import com.example.news.presentation.adapter.ArticleAdapter
 import com.example.news.presentation.contract.ArticleContract
 import com.example.news.presentation.ui.activities.MainActivity
 import com.example.news.presentation.ui.activities.WebActivity
-import kotlinx.android.synthetic.main.fragment_technology.*
-import kotlinx.android.synthetic.main.fragment_top_headlines.*
-import kotlinx.android.synthetic.main.fragmnet_sports.*
+import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-class SportsFragment :Fragment(R.layout.fragmnet_sports) {
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    lateinit var viewModel:ArticleContract.ViewModel
+    lateinit var viewModel: ArticleContract.ViewModel
     private lateinit var articleAdapter: ArticleAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         initRv()
-        initRefreshFeed()
-
+        initSearchNews()
 
 
 
 
     }
-
     private fun initViewModel(){
         viewModel = (activity as MainActivity).articleViewModel
 
-        viewModel.sportNews .observe(viewLifecycleOwner, Observer {
+        viewModel.searchedNews .observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success ->{
                     it.data?.let {
@@ -53,26 +54,35 @@ class SportsFragment :Fragment(R.layout.fragmnet_sports) {
 
             }
         })
-        viewModel.getSportsNews(Constants.COUNTRY_NEWS,Constants.SPORTS)
     }
     private fun initRv(){
         articleAdapter = ArticleAdapter({
-            val intent = Intent(activity,WebActivity::class.java)
+            val intent = Intent(activity, WebActivity::class.java)
             intent.putExtra(Constants.NEWS_URL,it.url)
             startActivity(intent)
         },{
             viewModel.saveArticle(it)
 
         })
-        recyclerSports.apply {
+        rvSearchId.apply {
             adapter = articleAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
-    private fun initRefreshFeed(){
-        refreshSportId.setOnRefreshListener {
-            viewModel.getSportsNews(Constants.COUNTRY_NEWS,Constants.SPORTS)
-            refreshSportId.isRefreshing = false
+    private fun initSearchNews(){
+        var job: Job?=null
+        searchViewId.addTextChangedListener {
+            job?.cancel()
+            job = MainScope().launch {
+                delay(500L)
+                it?.let {
+                    if(it.toString().isNotEmpty()){
+                        viewModel.getSearchedNews(it.toString())
+                    }
+                }
+            }
         }
     }
+
+
 }

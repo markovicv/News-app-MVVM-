@@ -10,16 +10,24 @@ interface NewsAPI {
     @GET("v2/top-headlines")
     suspend fun fetchTopHeadlines(
         @Query("country") countryCode:String = "us",
-        @Query("page") pages:Int = 1,
+        @Query("pageSize") pages:Int = 20,
         @Query("apiKey") apiKey:String
     ):Response<NewsResponse>
 
     @GET("v2/top-headlines")
-    suspend fun fetchSportsNews(
+    suspend fun fetchCategoryNews(
         @Query("country") conuntryCode:String = "us",
         @Query("category") category: String,
-        @Query("page") pages:Int = 1,
+        @Query("pageSize") pages:Int = 20,
         @Query("apiKey")apiKey: String
+    ):Response<NewsResponse>
+
+
+    @GET("v2/top-headlines")
+    suspend fun fetchSearchedNews(
+        @Query("q") querySearch:String,
+        @Query("pageSize") pages:Int =20,
+        @Query("apiKey") apiKey: String
     ):Response<NewsResponse>
 
 
